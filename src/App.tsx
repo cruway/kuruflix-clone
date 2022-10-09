@@ -21,7 +21,7 @@ function App() {
   return (
       <Wrapper>
         <Box
-            transition={{ type: "tween" }}
+            transition={{ type: "spring", damping: 5 }}
             initial={{ scale: 0 }} animate={{ scale: 1, rotateZ: 360 }} />
       </Wrapper>
   );
