@@ -80,6 +80,12 @@ function App() {
                   </Box>
               ))}
           </Grid>
+          <BtnPanel>
+              <BtnCircle
+                  onClick={toggleClicked}
+                  style={clicked ? {transform: "scale(1.25)", color: "orange"} : {transform: "scale(1)", color: "blue"}}
+              >Switch</BtnCircle>
+          </BtnPanel>
           <AnimatePresence>
               { id ? (
                   <Overlay
@@ -92,12 +98,6 @@ function App() {
                   </Overlay>
               ) : null}
           </AnimatePresence>
-          <BtnPanel>
-              <BtnCircle
-                  onClick={toggleClicked}
-                  style={clicked ? {transform: "scale(1.25)", color: "orange"} : {transform: "scale(1)", color: "blue"}}
-              >Switch</BtnCircle>
-          </BtnPanel>
       </Wrapper>
   );
 }
