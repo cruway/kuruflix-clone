@@ -3,7 +3,7 @@ import App from './App';
 import reset from "styled-reset";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import {RecoilRoot} from "recoil";
-import {darkTheme} from "./theme";
+import {theme} from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Source Sans Pro', sans-serif;
     color: black;
     line-height: 1.2;
-    background: linear-gradient(135deg, #e09, #d0e);
   }
 
   a {
@@ -33,7 +32,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <RecoilRoot>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={theme}>
             <GlobalStyle />
             <App />
         </ThemeProvider>
