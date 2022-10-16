@@ -9,9 +9,9 @@ function App() {
         <Router>
             <Header />
             <Routes>
-                <Route path={""} element={<Home />}/>
-                <Route path={"tv"} element={<Tv />}/>
-                <Route path={"search"} element={<Search />}/>
+                <Route path={"kuruflix-clone"} element={<Home />}/>
+                <Route path={"kuruflix-clone/tv"} element={<Tv />}/>
+                <Route path={"kuruflix-clone/search"} element={<Search />}/>
             </Routes>
         </Router>
     );
