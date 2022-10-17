@@ -131,9 +131,15 @@ export const infoVariants = {
 
 export const offset = 6;
 
-export const CommonStyled = styled.div`
+export const Slider = styled.div`
   position: relative;
   top: -100px;
+`;
+
+export const SliderTitle = styled.h1`
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
 `;
 
 export const Row = styled(motion.div)`

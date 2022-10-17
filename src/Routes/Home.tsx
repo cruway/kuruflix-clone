@@ -7,14 +7,14 @@ import {useMatch, useNavigate} from "react-router-dom";
 import {
     Info,
     Row,
-    CommonStyled,
+    Slider,
     Wrapper,
     offset,
     Loader,
     Banner,
     Title,
     Overview,
-    rowVariants, Box, infoVariants, boxVariants, Overlay, BigPanel, BigCover, BigTitle, BigOverView
+    rowVariants, Box, infoVariants, boxVariants, Overlay, BigPanel, BigCover, BigTitle, BigOverView, SliderTitle
 } from "./CommonStyled/CommonStyled";
 
 function Home() {
@@ -55,7 +55,8 @@ function Home() {
                         <Title>{data?.results[0].title}</Title>
                         <Overview>{data?.results[0].overview}</Overview>
                     </Banner>
-                    <CommonStyled>
+                    <Slider>
+                        <SliderTitle>Now Playing Movie</SliderTitle>
                         <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                             <Row
                                 variants={rowVariants}
@@ -86,7 +87,7 @@ function Home() {
                                 ))}
                             </Row>
                         </AnimatePresence>
-                    </CommonStyled>
+                    </Slider>
                     <AnimatePresence>
                         {bigMovieMatch ? (
                             <>

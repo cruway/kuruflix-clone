@@ -5,14 +5,14 @@ import {useMatch, useNavigate} from "react-router-dom";
 import {
     Info,
     Row,
-    CommonStyled,
+    Slider,
     Wrapper,
     offset,
     Loader,
     Banner,
     Title,
     Overview,
-    rowVariants, Box, infoVariants, boxVariants, Overlay, BigPanel, BigCover, BigTitle, BigOverView
+    rowVariants, Box, infoVariants, boxVariants, Overlay, BigPanel, BigCover, BigTitle, BigOverView, SliderTitle
 } from "./CommonStyled/CommonStyled";
 import {useState} from "react";
 import {getTv, IGetTvResult} from "../api";
@@ -55,7 +55,8 @@ function Tv() {
                         <Title>{data?.results[0].name}</Title>
                         <Overview>{data?.results[0].overview}</Overview>
                     </Banner>
-                    <CommonStyled>
+                    <Slider>
+                        <SliderTitle>On Air TV Shows</SliderTitle>
                         <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                             <Row
                                 variants={rowVariants}
@@ -86,7 +87,7 @@ function Tv() {
                                     ))}
                             </Row>
                         </AnimatePresence>
-                    </CommonStyled>
+                    </Slider>
                     <AnimatePresence>
                         {bigTvMatch ? (
                             <>
