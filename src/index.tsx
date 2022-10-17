@@ -4,7 +4,7 @@ import reset from "styled-reset";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import {RecoilRoot} from "recoil";
 import {theme} from "./theme";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}

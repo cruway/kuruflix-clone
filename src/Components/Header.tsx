@@ -76,7 +76,10 @@ const Circle = styled(motion.span)`
 const Input = styled(motion.input)`
   transform-origin: right center;
   position: absolute;
+  border-radius: 5px;
   left: -150px;
+  width: 200px;
+  height: 30px;
 `;
 
 const logoVariants = {
@@ -116,12 +119,10 @@ function Header() {
             inputAnimation.start({
                 scaleX: 0
             });
-            // trigger the close animation
         } else {
             inputAnimation.start({
                 scaleX: 1
             });
-            // trigger the open animation
         }
         setSearchOpen(prev => !prev);
     };
@@ -134,10 +135,12 @@ function Header() {
             }
         });
     }, [scrollY, navAnimation]);
-    const history = useNavigate();
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm<IForm>();
     const onValid = (data:IForm) => {
-        history(`/search?keyword=${data.keyword}`);
+        homeMatch
+            ? navigate(`search/?category=movies&keyword=${data.keyword}`)
+            : navigate(`search/?category=tvs&keyword=${data.keyword}`);
     };
     return (
         <Nav
@@ -160,12 +163,12 @@ function Header() {
                 <Items>
                     <Item>
                         <Link to={""}>
-                            Home {homeMatch && <Circle layoutId={"circle"}/>}
+                            ホーム {homeMatch && <Circle layoutId={"circle"}/>}
                         </Link>
                     </Item>
                     <Item>
                         <Link to={"tv"}>
-                            Tv Shows {tvMatch && <Circle layoutId={"circle"}/>}
+                            TV番組・ドラマ {tvMatch && <Circle layoutId={"circle"}/>}
                         </Link>
                     </Item>
                 </Items>
@@ -191,7 +194,7 @@ function Header() {
                         animate={ inputAnimation }
                         initial={{ scaleX: 0 }}
                         transition={{ type: "linear" }}
-                        placeholder={"Search for movie or tv show..."}
+                        placeholder={"映画及びTV番組・ドラマを検索"}
                     />
                 </Search>
             </Col>
