@@ -6,12 +6,16 @@ import Header from "./Routes/Components/Header";
 
 function App() {
     return (
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <Header />
             <Routes>
-                <Route path={"kuruflix-clone"} element={<Home />}/>
-                <Route path={"kuruflix-clone/tv"} element={<Tv />}/>
-                <Route path={"kuruflix-clone/search"} element={<Search />}/>
+                <Route path={"/*"} element={<Home />}>
+                    <Route path={"movies/:movieId"} element={<Home />} />
+                </Route>
+                <Route path={"tv/*"} element={<Tv />}>
+                    <Route path={"tv/show/:tvId"} element={<Tv />} />
+                </Route>
+                <Route path={"search"} element={<Search />}/>
             </Routes>
         </Router>
     );

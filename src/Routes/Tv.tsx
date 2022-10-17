@@ -2,8 +2,9 @@ import styled from "styled-components";
 import {useQuery} from "@tanstack/react-query";
 import {getTv, IGetTvResult} from "../api";
 import {makeImagePath} from "../utils";
-import {AnimatePresence, motion} from "framer-motion";
+import {AnimatePresence, motion, useScroll} from "framer-motion";
 import {useState} from "react";
+import {useMatch, useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
   background: black;
@@ -56,6 +57,7 @@ const Box = styled(motion.div)<{bgPhoto: string}>`
   background-position: center center;
   height: 200px;
   font-size: 66px;
+  cursor: pointer;
   &:first-child {
     transform-origin: center left;
   }
@@ -75,6 +77,49 @@ const Info = styled(motion.div)`
     text-align: center;
     font-size: 18px;
   }
+`;
+
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+`;
+
+const BigTv = styled(motion.div)`
+  position: absolute;
+  width: 40vw;
+  height: 80vh;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: ${props => props.theme.black.lighter};
+`;
+
+const BigCover = styled.div`
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  height: 400px;
+`;
+
+const BigTitle = styled.h3`
+  color: ${props => props.theme.white.lighter};
+  padding: 20px;
+  font-size: 46px;
+  position: relative;
+  top: -80px
+`;
+
+const BigOverView = styled.p`
+  padding: 20px;
+  position: relative;
+  top: -80px;
+  color: ${props => props.theme.white.lighter};
 `;
 
 const rowVariants = {
@@ -118,6 +163,9 @@ const infoVariants = {
 const offset = 6;
 
 function Tv() {
+    const history = useNavigate();
+    const bigTvMatch = useMatch("/tv/show/:tvId");
+    const { scrollY } = useScroll();
     const { data, isLoading } = useQuery<IGetTvResult>(
         ["tv","nowOnAir"],
         getTv
@@ -132,6 +180,13 @@ function Tv() {
         setIndex(prev => (prev === maxIndex ? 0 : prev + 1));
     };
     const toggleLeaving = () => setLeaving(prev => !prev);
+    const onBoxClicked = (tvId: number) => {
+        history(`/tv/show/${tvId}`);
+    };
+    const onOverlayClick = () => history("");
+    const clickedTv =
+        bigTvMatch?.params.tvId &&
+        data?.results.find(tv => String(tv.id) === bigTvMatch.params.tvId);
     return (
         <Wrapper>
             {isLoading? (
@@ -160,10 +215,12 @@ function Tv() {
                                     .slice(offset * index, offset * index + offset)
                                     .map(tv => (
                                         <Box
+                                            layoutId={tv.id + ""}
                                             key={tv.id}
                                             whileHover={"hover"}
                                             initial={"normal"}
                                             variants={boxVariants}
+                                            onClick={() => onBoxClicked(tv.id)}
                                             transition={{ type: "tween" }}
                                             bgPhoto={makeImagePath(tv.backdrop_path, "w500")}
                                         >
@@ -175,6 +232,34 @@ function Tv() {
                             </Row>
                         </AnimatePresence>
                     </Slider>
+                    <AnimatePresence>
+                        {bigTvMatch ? (
+                            <>
+                                <Overlay
+                                    onClick={onOverlayClick}
+                                    exit={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                />
+                                <BigTv
+                                    style={{ top: scrollY.get() + 100 }}
+                                    layoutId={bigTvMatch.params.tvId}
+                                >
+                                    {clickedTv && <>
+                                        <BigCover
+                                            style={{
+                                                backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
+                                                    clickedTv.backdrop_path,
+                                                    "w500"
+                                                )})`,
+                                            }}
+                                        />
+                                        <BigTitle>{clickedTv.name}</BigTitle>
+                                        <BigOverView>{clickedTv.overview}</BigOverView>
+                                    </>}
+                                </BigTv>
+                            </>
+                        ) : null}
+                    </AnimatePresence>
                 </>
             )}
         </Wrapper>

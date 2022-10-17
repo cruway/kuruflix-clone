@@ -101,8 +101,8 @@ const navVariants = {
 
 function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
-    const homeMatch = useMatch("kuruflix-clone");
-    const tvMatch = useMatch("kuruflix-clone/tv");
+    const homeMatch = useMatch("");
+    const tvMatch = useMatch("tv");
     const inputAnimation = useAnimation();
     const navAnimation = useAnimation();
     const { scrollY } = useScroll();
@@ -149,12 +149,12 @@ function Header() {
                 </Logo>
                 <Items>
                     <Item>
-                        <Link to={"kuruflix-clone"}>
+                        <Link to={""}>
                             Home {homeMatch && <Circle layoutId={"circle"}/>}
                         </Link>
                     </Item>
                     <Item>
-                        <Link to={"kuruflix-clone/tv"}>
+                        <Link to={"tv"}>
                             Tv Shows {tvMatch && <Circle layoutId={"circle"}/>}
                         </Link>
                     </Item>
