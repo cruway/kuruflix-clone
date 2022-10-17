@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/kuruflix-clone/static/js/main.b9aea023.js",
+    "main.js": "/kuruflix-clone/static/js/main.77a69c67.js",
     "index.html": "/kuruflix-clone/index.html",
-    "main.b9aea023.js.map": "/kuruflix-clone/static/js/main.b9aea023.js.map"
+    "main.77a69c67.js.map": "/kuruflix-clone/static/js/main.77a69c67.js.map"
   },
   "entrypoints": [
-    "static/js/main.b9aea023.js"
+    "static/js/main.77a69c67.js"
   ]
 }
